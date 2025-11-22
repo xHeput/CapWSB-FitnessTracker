@@ -27,7 +27,6 @@ public class UserEvent {
     @Column(name = "registered_at", nullable = false)
     private LocalDateTime registeredAt = LocalDateTime.now();
 
-    // --- konstruktory ---
     public UserEvent() {
     }
 
@@ -38,7 +37,6 @@ public class UserEvent {
         this.registeredAt = registeredAt;
     }
 
-    // --- gettery / settery ---
     public Long getId() {
         return id;
     }

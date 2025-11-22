@@ -29,7 +29,6 @@ public class Event {
     @Column(name = "city")
     private String city;
 
-    // --- konstruktory ---
     public Event() {
     }
 

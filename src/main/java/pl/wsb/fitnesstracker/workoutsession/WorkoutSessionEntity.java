@@ -34,11 +34,9 @@ public class WorkoutSessionEntity {
     @Column(name = "altitude")
     private Double altitude;
 
-    // --- wymagany przez JPA pusty konstruktor ---
     public WorkoutSessionEntity() {
     }
 
-    // --- opcjonalny konstruktor pomocniczy ---
     public WorkoutSessionEntity(
             TrainingEntity training,
             LocalDateTime timestamp,
@@ -56,7 +54,6 @@ public class WorkoutSessionEntity {
         this.altitude = altitude;
     }
 
-    // --- GETTERY / SETTERY ---
 
     public Long getId() {
         return id;
