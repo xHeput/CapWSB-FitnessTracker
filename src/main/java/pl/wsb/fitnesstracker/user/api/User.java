@@ -27,15 +27,22 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    // >>> DODANE POD TESTY <<<
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+    // >>>>>>>>>>>>>>>>>>>>>>>>
+
     public User(
             final String firstName,
             final String lastName,
             final LocalDate birthdate,
             final String email) {
-
+        this.firstName = firstName;   // <-- ważne: ustawiamy nowe pola
+        this.lastName  = lastName;
         this.birthdate = birthdate;
-        this.email = email;
+        this.email     = email;
     }
-
 }
-
