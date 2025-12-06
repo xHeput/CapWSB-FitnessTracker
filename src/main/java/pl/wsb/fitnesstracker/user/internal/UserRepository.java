@@ -5,6 +5,8 @@ import pl.wsb.fitnesstracker.user.api.User;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.time.LocalDate;
+import java.util.List;
 
 interface UserRepository extends JpaRepository<User, Long> {
 
@@ -20,4 +22,7 @@ interface UserRepository extends JpaRepository<User, Long> {
                 .findFirst();
     }
 
+    List<User> findByEmailContainingIgnoreCase(String fragment);
+
+    List<User> findByBirthdateBefore(LocalDate threshold);
 }
