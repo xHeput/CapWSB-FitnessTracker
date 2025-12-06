@@ -36,13 +36,19 @@ class InitialDataLoader {
 
     private final JpaRepository<Training, Long> trainingRepository;
 
+    private static final String SANTA_EMAIL = "swiety.mikolaj@northpole.example";
+
+
     @EventListener
     @Transactional
     @SuppressWarnings({"squid:S1854", "squid:S1481", "squid:S1192", "unused"})
     public void loadInitialData(ContextRefreshedEvent event) {
+
         verifyDependenciesAutowired();
 
         log.info("Loading initial data to the database");
+
+        ensureSantaUser();
 
         List<User> sampleUserList = generateSampleUsers();
         List<Training> sampleTrainingList = generateTrainingData(sampleUserList);
@@ -162,10 +168,32 @@ class InitialDataLoader {
         return trainingData;
     }
 
+    private void ensureSantaUser() {
+        // if user exist
+        boolean exists = userRepository.findAll().stream()
+                .anyMatch(u -> SANTA_EMAIL.equalsIgnoreCase(u.getEmail()));
+
+        if (!exists) {
+            // „wiek: do zweryfikowania”
+            User mikolaj = new User(
+                    "Mikołaj",
+                    "Święty",
+                    java.time.LocalDate.of(1900, 12, 6),
+                    SANTA_EMAIL
+            );
+            userRepository.save(mikolaj);
+            log.info("Dodano użytkownika: {} {}", mikolaj.getFirstName(), mikolaj.getLastName());
+        } else {
+            log.info("Użytkownik Św. Mikołaj już istnieje – pomijam dodawanie.");
+        }
+    }
+
+
     private void verifyDependenciesAutowired() {
         if (isNull(userRepository)) {
             throw new IllegalStateException("Initial data loader was not autowired correctly " + this);
         }
     }
+
 
 }
